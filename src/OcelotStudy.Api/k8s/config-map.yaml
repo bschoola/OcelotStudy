@@ -1,0 +1,9 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: ${APP_NAME}
+  name: ${APP_NAME}-config
+data:
+  ASPNETCORE_ENVIRONMENT : ${ASPNETCORE_ENVIRONMENT}
+  ROOT_PATH : ${ROOT_PATH}

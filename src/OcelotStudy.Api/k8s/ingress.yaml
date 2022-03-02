@@ -1,0 +1,23 @@
+﻿apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ${APP_NAME}-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "1200"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "1200"
+spec:
+  rules:
+  - host: ${INGRESS_DNS}
+    http:
+      paths:
+      - path: ${ROOT_PATH}
+        backend:
+          serviceName: ${APP_NAME}-svc
+          servicePort: 80
+  tls:
+  - hosts:
+    - ${INGRESS_DNS}
+    secretName: ${APP_NAME}-cert

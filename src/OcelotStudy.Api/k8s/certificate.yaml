@@ -1,0 +1,10 @@
+﻿apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: ${APP_NAME}
+  name: ${APP_NAME}-cert
+type: kubernetes.io/tls
+data:
+  tls.crt : ${CERT_DATA}
+  tls.key : ${CERT_KEY}  

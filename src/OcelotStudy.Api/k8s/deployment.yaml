@@ -1,0 +1,44 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations: {}
+  labels:
+    app: ${APP_NAME}
+  name: ${APP_NAME}-deployment
+spec:
+  progressDeadlineSeconds: 600
+  replicas: ${REPLICAS}
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: ${APP_NAME}
+  strategy:
+    rollingUpdate:
+      maxSurge: 50%
+      maxUnavailable: 50%
+    type: RollingUpdate
+  template:
+    metadata:
+      name: ${APP_NAME}
+      labels:
+        app: ${APP_NAME}
+    spec:
+      containers:
+        - name: ${APP_NAME}
+          image: ${DOCKER_NAMESPACE}/${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: ${APP_NAME}-config
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          resources:
+              limits:
+                memory: "128Mi"
+                cpu: "100m"
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+        - name: registry-credentials

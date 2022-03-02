@@ -1,0 +1,9 @@
+﻿apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app: ${APP_NAME}
+  name: registry-credentials
+type: kubernetes.io/dockerconfigjson
+data:
+  .dockerconfigjson: ewogICAgICAgICJhdXRocyI6IHsKICAgICAgICAgICAgICAgICJodHRwczovL2luZGV4LmRvY2tlci5pby92MS8iOiB7CiAgICAgICAgICAgICAgICAgICAgICAgICJhdXRoIjogIllXeGlaR2xuYVhSaGJIUmxZVzA2WjJwMWVEQnRXRzlhVUhBeFduQmtSQT09IgogICAgICAgICAgICAgICAgfQogICAgICAgIH0sCiAgICAgICAgIkh0dHBIZWFkZXJzIjogewogICAgICAgICAgICAgICAgIlVzZXItQWdlbnQiOiAiRG9ja2VyLUNsaWVudC8xOC4wOS40IChsaW51eCkiCiAgICAgICAgfQp9
